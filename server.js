@@ -23,12 +23,20 @@ app.post('/beers', function (req, res, next) {
   Beer.create(req.body, handler(res, next));
 });
 
-app.delete('/beers/:postid', function (req, res, next) {
-  let postid = req.params.postid;
-  Beer.findByIdAndRemove(postid, handler(res, next));
+app.delete('/beers/:beerId', function (req, res, next) {
+  let beerId = req.params.beerId;
+  Beer.findByIdAndRemove(beerId, handler(res, next));
 });
 
-//////////////////////////////////////////////////////////////////////////////
+app.post('/beers/:beerId/reviews', function (req, res, next) {
+  let beerId = req.params.beerId,
+    updateObject = { $push: { reviews: req.body } };
+
+  Beer.findByIdAndUpdate(beerId, updateObject, { new: true }, handler(res, next));
+});
+
+/////////////////////////////OPTIONALS////////////////////////////////////////////
+
 app.post('/beers/:id/ratings', function (req, res, next) {
   let id = req.params.id;
   var updateObject = { $push: { ratings: req.body.rating } };
@@ -38,15 +46,23 @@ app.post('/beers/:id/ratings', function (req, res, next) {
 
 app.put('/beers/:beerId/update', function (req, res, next) {
   let beerId = req.params.beerId,
-  param = req.body.param,
-  val = req.body.val;
+    param = req.body.param,
+    val = req.body.val;
   var updateObject = {};
   updateObject[param] = val;
 
   Beer.findByIdAndUpdate(beerId, updateObject, { new: true }, handler(res, next));
 });
 
-/////////////////////////////////////////////////////////////////////////////////////////
+app.delete('/beers/:beerId/:reviewId/reviews', function (req, res, next) {
+  let beerId = req.params.beerId,
+  reviewId = req.params.reviewId;
+  
+  let  updateObject = { $pull:{ reviews: { _id: reviewId }} };
+  Beer.findByIdAndUpdate(beerId, updateObject, {new: true}, handler(res, next));
+});
+
+/////////////////////////////////////END OF OPTIONALS/////////////////////////////////
 
 // error handler to catch 404 and forward to main error handler
 app.use(function (req, res, next) {
@@ -66,7 +82,7 @@ app.use(function (err, req, res, next) {
 });
 
 function handler(res, next) {
-  return function(err, beer) {
+  return function (err, beer) {
     if (err) {
       return next(err);
     }

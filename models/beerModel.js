@@ -1,12 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const reviewSchema = new Schema({
+    user: String,
+    comment: String
+});
+
 const beerSchema = new Schema({
     name: String,
     style: String,
     image_url: String,
     abv: Number,
-    ratings: [Number]
+    ratings: [Number],
+    reviews: [reviewSchema]
 });
 
 
