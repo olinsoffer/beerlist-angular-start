@@ -17,11 +17,25 @@ app.factory('beerFact', function ($http) {
                 .then(function (response) {
                     return angular.copy(response.data);
                 });
+        },
+        getBeer = function(id) {
+            return $http.get('/onebeer/'+id)
+            .then(function(response) {
+                return angular.copy(response.data);
+            });
+        },
+        addReview = function(id , review) {
+            return $http.post('/beers/'+id+'/reviews', review)
+            .then(function(response) {
+                return angular.copy(response.data);
+            });
         };
 
     return {
         getBeers: getBeers,
         removeBeer: removeBeer,
-        addBeer: addBeer
+        addBeer: addBeer,
+        getBeer: getBeer,
+        addReview: addReview
     };
 });

@@ -1,12 +1,19 @@
 body {
-    background-color: #FFC400;
+    background-color: rgb(252, 169, 53);
     margin-top: 30px;
     padding-bottom: 100px; 
 }
 
 #beers-list {
     /* margin-top: 50px; */
-    background-color: #FFF56B;
+    background-color: rgb(255, 142, 107);
+    /* width: 40%; */
+}
+
+#beers-list-temp {
+    /* margin-top: 50px; */
+    background-color: rgb(255, 142, 107);
+    width: 40%;
 }
 
 .beer-pics {
