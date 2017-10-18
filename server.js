@@ -28,6 +28,7 @@ app.delete('/beers/:postid', function (req, res, next) {
   Beer.findByIdAndRemove(postid, handler(res, next));
 });
 
+//////////////////////////////////////////////////////////////////////////////
 app.post('/beers/:id/ratings', function (req, res, next) {
   let id = req.params.id;
   var updateObject = { $push: { ratings: req.body.rating } };
@@ -44,6 +45,8 @@ app.put('/beers/:beerId/update', function (req, res, next) {
 
   Beer.findByIdAndUpdate(beerId, updateObject, { new: true }, handler(res, next));
 });
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 // error handler to catch 404 and forward to main error handler
 app.use(function (req, res, next) {
