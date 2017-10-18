@@ -3,7 +3,7 @@ app.controller('mainCtrl', function ($scope, beerFact) {
     $scope.addBeer = function () {
         let obj = {
             abv: $scope.abv,
-            image: $scope.image,
+            image_url: $scope.image,
             name: $scope.name,
             style: $scope.style
         };
@@ -32,6 +32,7 @@ app.controller('mainCtrl', function ($scope, beerFact) {
     beerFact.getBeers()
         .then(function (beers) {
             $scope.beers = beers;
+            console.log(beers)
         })
         .catch(function (error) {
             console.log(error);

@@ -1,0 +1,47 @@
+<!-- <div class="page-header">
+    <a ui-sref="home">Home</a>
+    <h3>
+        <span>{{beer.name}}</span>
+    </h3>
+</div> -->
+<a ui-sref="home">Home</a>
+<div class="page-header">
+</div>
+<div id="beers-list-temp" class="row">
+    <div class="col-md-8">
+        <div class="beer-container">
+            <img class="beer-pics" ng-src="{{beer.image_url}}">
+            <h3 class="beer-title beer-textu">{{beer.name}}
+                <span class="beer-style">{{beer.style}}</span>
+            </h3>
+            <!-- <a class="reviews-link h4" ui-sref="beer({beerId: beer._id, beerParam: beer})">Reviews</a> -->
+            <!-- <button type="button" class="btn btn-primary" ng-click="removeBeer($index)">Remove</button> -->
+            <!-- <p class="beer-des beer-textu">{{beer.descrShort}}</p> -->
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" ng-model="user"></input>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Review" ng-model="comment"></input>
+                    <button type="submit" class="btn btn-primary" ng-click="addReview()">Submit</button>
+                </div>
+        </div>
+    </div>
+    <hr>
+    <div class="reviews">
+        <h2>Reviews</h2>
+        <div class="reviews-list">
+            <ul>
+                <li ng-repeat="review in reviews">{{review.user}}: {{review.comment}}</li>
+            </ul>
+        </div>
+    </div>
+
+    

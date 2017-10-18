@@ -32,7 +32,12 @@ app.post('/beers/:beerId/reviews', function (req, res, next) {
   let beerId = req.params.beerId,
     updateObject = { $push: { reviews: req.body } };
 
-  Beer.findByIdAndUpdate(beerId, updateObject, { new: true }, handler(res, next));
+  Beer.findByIdAndUpdate(beerId, updateObject, { new: true }, function(err, beer) {
+    if (err) {
+      return next(err);
+    }
+    res.send(req.body);
+  });
 });
 
 /////////////////////////////OPTIONALS////////////////////////////////////////////
@@ -60,6 +65,12 @@ app.delete('/beers/:beerId/:reviewId/reviews', function (req, res, next) {
   
   let  updateObject = { $pull:{ reviews: { _id: reviewId }} };
   Beer.findByIdAndUpdate(beerId, updateObject, {new: true}, handler(res, next));
+});
+
+app.get('/onebeer/:beerId', function(req, res, next) {
+  let beerId = req.params.beerId;
+
+  Beer.findById(beerId, handler(res, next));
 });
 
 /////////////////////////////////////END OF OPTIONALS/////////////////////////////////
